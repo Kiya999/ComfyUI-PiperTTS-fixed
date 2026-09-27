@@ -1,4 +1,4 @@
-piper-tts
+piper-tts>=1.3.0
 onnxruntime-gpu
 httpx
 tqdm
