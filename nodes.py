@@ -9,10 +9,10 @@ class PiperTTS:
     @classmethod
     def INPUT_TYPES(s):
         return {
-            "required": { 
+            "required": {
                 "text": ("STRING", {"default": "", "multiline": True}),
                 "voice": (get_tts_voice_names_without_quality(),),
-                "quality": (["high", "medium", "low"], {"default":"high"}),
+                "quality": (["high", "medium", "low"], {"default":"medium"}),
             }
         }
 
@@ -51,9 +51,9 @@ class PiperTTS:
 
         audio_save_name = f"{((re.sub('[^A-Za-z]', ' ', text)).strip()).replace(' ', '_')[:60]}.wav"
         audio_save_path = os.path.join(output_path,audio_save_name)
-        wav_file = wave.open(audio_save_path, 'w')
-        audio = TTS.synthesize(text, wav_file)
-        wav_file.close()
+
+        with wave.open(audio_save_path, "w") as wav_file:
+            TTS.synthesize_wav(text, wav_file)
 
         previews = [
             {
